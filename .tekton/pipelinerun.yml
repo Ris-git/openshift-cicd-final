@@ -1,0 +1,11 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: cicd-pipeline-run
+spec:
+  pipelineRef:
+    name: cicd-pipeline
+  workspaces:
+    - name: source
+      persistentVolumeClaim:
+        claimName:  my-app-pvc
