@@ -1,0 +1,23 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: cicd-pipeline
+spec:
+  workspaces:
+    - name: source
+  tasks:
+    - name: clean
+      taskRef:
+        name: cleanup
+      workspaces:
+        - name: source
+          workspace: source
+
+    - name: test
+      runAfter:
+        - clean
+      taskRef:
+        name: nose-test
+      workspaces:
+        - name: source
+          workspace: source
